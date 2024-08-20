@@ -4,9 +4,30 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LiteEdit.View"
+        xmlns:doc="clr-namespace:LiteEdit.Controllers;assembly=LiteEdit.Controllers"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="{Binding Document.FileName}" Height="600" Width="1000">
+    <Window.DataContext>
+        <doc:DocumentContoller x:Name="documentController"/>
+    </Window.DataContext>
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
+        <Menu Grid.Row="0" Height="23">
+            <MenuItem Header="File" Height="22">
+                <MenuItem Header="New" Command="{Binding NewDocumentCommand}"/>
+                <MenuItem Header="Open" Command="{Binding OpenDocumentCommand}"/>
+                <MenuItem Header="Save" Command="{Binding SaveDocumentCommand}"/>
+                <MenuItem Header="Save As..." Command="{Binding SaveAsDocumentCommand}"/>
+                <MenuItem Header="Exit" Command="{Binding ExitCommand}"/>
+            </MenuItem>
+        </Menu>
+        <TextBox Grid.Row="1" 
+                 BorderThickness="0,0,0,0"
+                 Text="{Binding Content, UpdateSourceTrigger=PropertyChanged}"
+                 FontSize="16"/>
     </Grid>
 </Window>
